@@ -1,0 +1,16 @@
+.rbcColors{
+	background-color: #002144;
+	color: white;
+}
+
+.rbcTextHeader1{
+	font: 40px arial bold;
+}
+
+.rbcTextHeader2{
+	font: 30px arial bold;
+}
+
+.rbcTextBody{
+	font: 16px arial;
+}
