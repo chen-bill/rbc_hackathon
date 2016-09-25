@@ -28,11 +28,11 @@
 }
 
 .statsPanel .netWorth span{
-    font-size: 60px;
     text-align: center;
 }
 
 .statsPanel .netWorth .amount{
+    font-size: 60px;
     position: relative;
     margin-top: 10px;
     color: white;
@@ -54,6 +54,7 @@
 }
 
 .statsPanel .dollarSign{
+    font-size: 60px;
     color: #FEDF01;
 }
 
@@ -66,7 +67,7 @@
     margin-top: 5px;
     padding-right: 3px;
     font-size: 42px;
-    cursor: pointer;
+    cursor: default;
 }
 .statsPanel .statuses i.cannotAfford{
     cursor: not-allowed;

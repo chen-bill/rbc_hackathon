@@ -10,6 +10,32 @@
     text-align: center;
 }
 
+.mainContent .introForm{
+    text-align: left;
+    padding: 50px;
+    padding-top: 20px;
+}
+
+.mainContent .introForm label{
+    font-size: 30px;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    display: block;
+}
+
+.mainContent .introForm input{
+    display:block;
+    width: 50%;
+    font-size: 30px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.mainContent .introForm .radioButtons input{
+    display: inline;
+}
+
 .mainContent .summaryLink{
     display: block;
     color: #FEDF01;
@@ -41,7 +67,7 @@
 .mainContent .option{
     padding: 5px;
     margin: 5px;
-    cursor: pointer;
+    cursor: default;
     display: inline;
     font-weight: bold;
 }

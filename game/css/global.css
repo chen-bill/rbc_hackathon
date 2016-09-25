@@ -4,6 +4,10 @@
     font-family:'News Cycle', sans-serif;
 }	
 
+*:focus {
+    outline: none;
+}
+
 /*.main{*/
     /*background-color: #002144;*/
 /*}*/
@@ -23,6 +27,10 @@ button.active {
           -webkit-box-shadow: none;
                     box-shadow: none;
 
+}
+
+.yellow{
+    color: #FEDF01 !important;
 }
 
 .mask{
@@ -49,8 +57,22 @@ button.active {
 
 .followupPopup p{
     margin-top: 20px;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
 }
+
+.followupPopup span{
+    padding: 5px;
+    padding-bottom: 15px;
+}
+
+.followupPopup span:nth-child(1){
+    color: #AABA0A;
+}
+
+.followupPopup span:nth-child(1){
+    color: #9B301B;
+}
+
 
 .followupPopup .btn{
     position: absolute;

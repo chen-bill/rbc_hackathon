@@ -9,98 +9,142 @@
         <link rel="stylesheet" type="text/css" href="../css/statsPanel.css">
         <link rel="stylesheet" type="text/css" href="../css/weekTracker.css">
         <link rel="stylesheet" type="text/css" href="../css/angularAnimations.css">
+        <link rel="stylesheet" type="text/css" href="../css/results.css">
     </head>
     <body class="main" ng-controller="mainController">
-        <div class="mask" ng-show="state.currentFollowupEvent.text"></div>
-        <div class="followupPopup" ng-show="state.currentFollowupEvent.text">
-            <p>{{state.currentFollowupEvent.text}}</p>
-            <button class="btn" ng-click="followupClicked()">Continue</button>
-        </div>
-        <button ng-click="debug()" style="">debug</button>
-        <div class="statsPanel">
-            <div class="netWorth">
-                <p>NET WORTH:</p>
-                <span class="dollarSign">$</span><span class="amount">{{state.netWorth}}</span>
+        <div ng-show="state.flags.resultState !== true">
+            <div class="mask" ng-show="state.currentFollowupEvent.text"></div>
+            <div class="followupPopup" ng-show="state.currentFollowupEvent.text">
+                <p>{{state.currentFollowupEvent.text}}</p>
+                <span>{{getRevenueString(state.currentFollowupEvent.revenueChange)}}</span>
+                <span>{{getRevenueString(state.currentFollowupEvent.inFlowChange)}}</span>
+                <span>{{getRevenueString(state.currentFollowupEvent.outFlowChange)}}</span>
+                <button class="btn" ng-click="followupClicked()">Continue</button>
             </div>
-            <div class="cashFlow panel">
-                <!--<div class="title">Monthly Cash Flow:</div>-->
-                <!--<div>{{getNetFlow()}}</div>-->
-                <span class="inFlow">+${{state.inFlow}}</span>
-                <span class="outFlow">-${{state.outFlow}}</span>
-            </div>
-            <div class="statuses panel">
-                <div class="title">Statuses:</div>
-                <div ng-repeat="status in state.statuses track by $index"
-                        ng-mouseover="stateMouseover(status)"
-                        ng-mouseleave="stateMouseleave()"
-                        ng-click="statusClick(status, $index)"
-                        class="statusItem">
-                    <i class="{{status.icon}}"
-                            ng-class="{'clickableIcon': status.clickable, 'cannotAfford':cannotAfford(status)}"></i>
-                    <!--<span>{{status.title}}</span>-->
-                    <!--<p>{{status.effect}}</p>-->
+            <!--<button ng-click="debug()" style="">debug</button>-->
+            <div class="statsPanel">
+                <div class="netWorth">
+                    <p><span class="yellow">{{companyName}}</span> NET WORTH:</p>
+                    <span class="dollarSign">$</span><span class="amount">{{state.netWorth}}</span>
                 </div>
-            </div>
-            <div class="clickableItems panel">
-                <div class="title">Need More Money?</div>
-                <div ng-repeat="object in clickableObjects track by $index"
-                        ng-mouseover="clickableMouseover(object)"
-                        ng-mouseleave="state.statusText=''"
-                        ng-click="clickClickable(object)"
-                    >
-                    <i class="{{object.icon}} clickableIcon"></i>
+                <div class="cashFlow panel">
+                    <!--<div class="title">Monthly Cash Flow:</div>-->
+                    <!--<div>{{getNetFlow()}}</div>-->
+                    <span class="inFlow">+${{state.inFlow}}</span>
+                    <span class="outFlow">-${{state.outFlow}}</span>
                 </div>
-            </div>
-            <div class="statusDescription" 
-                    ng-show="state.statusText">
-                <div ng-show="state.statusTextWeeksUntil">{{state.statusTextWeeksUntil}}</div>
-                <div ng-show="state.statusTextRevenueChange">{{state.statusTextRevenueChange}}</div>
-                {{state.statusText}}
-            </div>
-        </div>
-        <div class="mainContent">
-            <!--{{state}}-->
-            <div ng-show="state.flags.isIntro==true"
-                    class="fade">
-                input boxes and shit
-            </div>
-            <!--<div ng-repeat="challenge in challenges track by $index" -->
-                    <!--ng-show="$index==state.currentWeek-1 -->
-            <div ng-show="state.flags.isIntro==false"
-                    class="box rotate fade" 
-                    ng-class="{'box': !state.flags.showResult, 'circle': state.flags.showResult}">
-                <div ng-show="state.flags.showResult == false">
-                    <div class="heading">{{challenge.text.heading}}</div>
-                    <div class="waterlooDoing" ng-show="challenge.options.length > 1">WHAT ARE YOU GOING TO DO?</div>
-                    <div class="optionsContainer">
-                        <div ng-click="selectOption(option)" 
-                                ng-class="{'cannotAfford':cannotAfford(option)}"
-                                ng-repeat="option in challenge.options" 
-                                class="option">
-                            {{option.optionText}} {{getRevenueString(option.result.revenueChange)}}
-                        </div>
+                <div class="statuses panel">
+                    <div class="title">Statuses:</div>
+                    <div ng-repeat="status in state.statuses track by $index"
+                            ng-mouseover="stateMouseover(status)"
+                            ng-mouseleave="stateMouseleave()"
+                            ng-click="statusClick(status, $index)"
+                            class="statusItem fade">
+                        <i class="{{status.icon}}"
+                                ng-class="{'clickableIcon': status.clickable, 'cannotAfford':cannotAfford(status)}"></i>
                     </div>
+                </div>
+                <div class="clickableItems panel">
+                    <div class="title">Need More Money?</div>
+                    <div ng-repeat="object in clickableObjects track by $index"
+                            ng-mouseover="clickableMouseover(object)"
+                            ng-mouseleave="state.statusText=''"
+                            ng-click="clickClickable(object)"
+                        >
+                        <i class="{{object.icon}} clickableIcon"></i>
+                    </div>
+                </div>
+                <div class="statusDescription" 
+                        ng-show="state.statusText">
+                    {{state.statusText}}
+                    <div ng-show="state.statusTextWeeksUntil">{{state.statusTextWeeksUntil}}</div>
+                    <div ng-show="state.statusTextRevenueChange">{{state.statusTextRevenueChange}}</div>
+                </div>
+            </div>
+            <div class="mainContent">
+                <!--<div ng-show="state.flags.isIntro==true" class="fade">-->
+                <div ng-show="state.flags.isIntro==true">
+                    <form class="introForm">
+                        <label>Company Name</label>
+                        <input ng-model="companyName" placeholder="KFC, GOOGLE"/>
+                        <label>Age</label>
+                        <input ng-model="age" placeholder="22"/>
+                        <label>Type</label>
+                        <input ng-model="type" placeholder="Service, Merchandise..."/>
+                        <label>Sector</label>
+                        <input ng-model="sector" placeholder="Retail, Food, Technology..."/>
+                        <button class="btn" style="font-size: 15px; float: left"
+                                ng-click="state.flags.isIntro=false">START</button>
+                    </form>
+                </div>
+                <div ng-show="state.flags.isIntro==false"
+                        class="box rotate fade" 
+                        ng-class="{'box': !state.flags.showResult, 'circle': state.flags.showResult}">
+                    <div ng-show="state.flags.showResult == false">
+                        <div class="heading">{{challenge.text.heading}}</div>
+                        <div class="waterlooDoing" ng-show="challenge.options.length > 1">WHAT ARE YOU GOING TO DO?</div>
+                        <div class="optionsContainer">
+                            <div ng-click="selectOption(option)" 
+                                    ng-class="{'cannotAfford':cannotAfford(option)}"
+                                    ng-repeat="option in challenge.options" 
+                                    class="option">
+                                {{option.optionText}} {{getRevenueString(option.result.revenueChange)}}
+                            </div>
+                        </div>
 
-                </div>
-                <div ng-show="state.flags.showResult == true"
-                        class="challengeResult">
-                    {{challenge.text.resultSummary}}
-                    <a class="summaryLink" target="_blank" href="{{challenge.text.resultSummaryLink}}">More Info</a>
-                    <button class="btn" ng-click='pressContinue()'>
-                        CONTINUE
-                    </button>
-                </div>
-            </div> 
+                    </div>
+                    <div ng-show="state.flags.showResult == true"
+                            class="challengeResult">
+                        {{challenge.text.resultSummary}}
+                        <a class="summaryLink" target="_blank" href="{{challenge.text.resultSummaryLink}}">More Info</a>
+                        <button class="btn" ng-click='pressContinue()'>
+                            CONTINUE
+                        </button>
+                    </div>
+                </div> 
+            </div>
+            <div class="weekTracker">
+                <div ng-repeat="week in weeks track by $index" class="week" ng-class="{'selected': $index==state.currentWeek-1}">{{week.week}}</div>
+            </div>
+            <img class="rbcLogo" src="../../assets/pictures/rbc-logo-color.png" ng-click="debug()"/>
         </div>
-        <div class="weekTracker">
-            <div ng-repeat="week in weeks track by $index" class="week" ng-class="{'selected': $index==state.currentWeek-1}">{{week.week}}</div>
+        <div ng-show="state.flags.resultState" class="results">
+            <div class="finalScore">
+                <h1>Final Net Worth:</h1>
+                <span class="yellow">$</span><span>{{state.netWorth}}</span>
+            </div>
+            <div class="graphs">
+                <h1>Net worth vs Time:</h1>
+                <fusioncharts 
+                    width= "90%"
+                    height= "400"
+                    type= "line"
+                    dataFormat= "json"
+                    dataSource= "{{finalResults}}">
+                </fusioncharts>
+            </div>
+
+            <div class="rbcTable">
+                <h1>Milestones:</h1>
+                <div class="milestone" ng-repeat="milestone in milestones" ng-show="showMilestone(milestone)">
+                    <div class="mileStoneTitle yellow">{{milestone.title}}</div>
+                    <div class="mileStoneDescription">{{milestone.description}}</div>
+                    <a href="{{milestone.descriptionLink}}" class="yellow">More info</a>
+                </div>
+            </div>
+            <div class="contact">
+                <!--<button ng-click="debug()">debug</button>-->
+                <a href="http://www.rbcroyalbank.com/business/"><img class="rbcLogoResults" src="../../assets/pictures/rbc-logo-color.png" ng-click="debug()"/></a>
+            </div>
         </div>
-        <img class="rbcLogo" src="../../assets/pictures/rbc-logo-color.png"/>
     </body>
 
     <footer>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.min.js"></script>
+		<script src="http://static.fusioncharts.com/code/latest/fusioncharts.js?cacheBust=823"></script>
+        <!--<script src="../js/fusionchart.js"></script>-->
+        <script src="../js/angular-fusioncharts.min.js"></script>
         <script src="../js/app.js"></script>
         <script src="../js/contentService.js"></script>
     </footer>

@@ -1,12 +1,13 @@
 (function(){
-    angular.module('mainApp',['ngAnimate'])
-    .controller('mainController', ['$scope','contentService','$interval', '$timeout', function($scope, contentService, $interval, $timeout) {
-        console.log(contentService);
+    angular.module('mainApp',['ngAnimate', 'ng-fusioncharts'])
+    .controller('mainController', ['$scope','contentService','$interval', '$timeout', '$http', function($scope, contentService, $interval, $timeout, $http) {
+        $scope.companyName = '';
 
-        var gameStats = {
+        $scope.gameStats = {
             options: [],
             flags: {
-                tookLoan: false
+                tookLoan: false,
+                tookMortgage: false
             }
         };
 
@@ -65,6 +66,14 @@
             },
         ];
 
+        $scope.showMilestone = function(milestone){
+            if($scope.gameStats.flags[milestone.show]){
+                return true;
+            } else {
+                return false;
+            }
+        };
+
         $scope.state = {
             currentWeek: 1,        //
             netWorth: 1000,
@@ -80,12 +89,12 @@
             statusTextRevenueChange: '',
             flags: {
                 showResult: false,
-                isIntro: false
+                isIntro: true,
+                resultState: false
             },
         };
 
         $scope.stateMouseover = function(statusObject){
-            console.log(statusObject);
             $scope.state.statusText = statusObject.description;
             if(statusObject.effect.revenueChange){
                 $scope.state.statusTextRevenueChange = "Amount Owed: " + statusObject.effect.revenueChange;
@@ -103,7 +112,6 @@
 
 
         $scope.selectOption = function(optionObject){
-            console.log($scope.cannotAfford(optionObject));
             if($scope.cannotAfford(optionObject)){
                 return;
             }
@@ -117,9 +125,15 @@
                 outFlow: $scope.state.outFlow,
                 statuses: $scope.state.status,
             };
-            gameStats.options.push(stat);
+            $scope.gameStats.options.push(stat);
 
             if($scope.state.week == 13){
+                $scope.generateFinalResults();
+            }
+
+            if(optionObject.result.milestoneFlag){
+                var test = $scope.gameStats.flags[optionObject.result.milestoneFlag];
+                $scope.gameStats.flags[optionObject.result.milestoneFlag]=true;
             }
 
             if(optionObject.result.followup){
@@ -132,7 +146,6 @@
             if(optionObject.result.revenueChange){
                 $scope.state.netWorthChangeQueue += optionObject.result.revenueChange;
             }
-
             if(optionObject.result.inFlowChange){
                 $scope.state.inFlow += optionObject.result.inFlowChange;
             }
@@ -146,7 +159,6 @@
             } else {
                 $scope.state.flags.showResult = true;
             }
-            console.log(optionObject);
         };
 
         $scope.cannotAfford = function(option){
@@ -202,7 +214,7 @@
 
         $scope.clickClickable = function(object){
             if(object.id === 'loan'){
-                gameStats.flags.tookLoan = true;
+                $scope.gameStats.flags.tookLoan = true;
             }
             $scope.state.statuses.push(object.result.newStatus);
             $scope.state.netWorthChangeQueue += object.result.revenueChange;
@@ -289,10 +301,94 @@
         };
 
         $scope.debug = function(){
-            console.log($scope);
-            //$scope.state.statuses.push(sampleStatus);
-            //$scope.state.netWorth = 0;
-            console.log(JSON.stringify(gameStats));
+            $scope.state.flags.resultState = true;
+            $scope.generateFinalResults();
+            console.log($scope.gameStats);
+        };
+
+        $scope.finalResults = {};
+
+        $scope.milestones = [
+            {
+                title: "Took Loan",
+                description: "RBC offers No annual fee. Low interest rate. RBC Royal Bank Visa CreditLine for Small Business. This unique solution combines an RBC Rewards credit card with a flexible credit line that provides you with access to funds up to $50,000.",
+                descriptionLink: "http://www.rbcroyalbank.com/business/financing/business-loans.html",
+                show: "tookLoan"
+            },
+            {
+                title: "Mortgages",
+                description: "Leverage a farm mortgage by providing multiple loans each with their own interest rate, payment schedule and term, to finance different farm needs.",
+                descriptionLink: "http://www.rbcroyalbank.com/business/financing/business-mortgage-loans.html",
+                show: "tookMortgage"
+            }
+        ];
+
+        $scope.generateFinalResults = function(){
+
+            var config= {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            $http.post('http://192.168.43.110:3000/postdata', $scope.gameStats, config).then(function(){
+                console.log('posted');
+            }, function(){
+                console.log('error');
+            });
+
+            for(var test=1; test < 100; test++){
+                console.log("test");
+                $http.post('http://192.168.43.110:3000/postdata', $scope.gameStats, config);
+            }
+
+            $scope.finalResults = {
+                "chart": {
+                    "xAxisName": "Week",
+                    "yAxisName": "Net Worth",
+                    "lineThickness": "2",
+                    "paletteColors": "#0075c2",
+                    "baseFontColor": "#333333",
+                    "baseFont": "Helvetica Neue,Arial",
+                    "captionFontSize": "14",
+                    "subcaptionFontSize": "14",
+                    "subcaptionFontBold": "0",
+                    "showBorder": "0",
+                    "bgColor": "#ffffff",
+                    "showShadow": "0",
+                    "canvasBgColor": "#ffffff",
+                    "canvasBorderAlpha": "0",
+                    "divlineAlpha": "100",
+                    "divlineColor": "#999999",
+                    "divlineThickness": "1",
+                    "divLineDashed": "1",
+                    "divLineDashLen": "1",
+                    "showXAxisLine": "1",
+                    "xAxisLineThickness": "1",
+                    "xAxisLineColor": "#999999",
+                    "showAlternateHGridColor": "0"
+                },
+                "data": []
+                //"trendlines": [
+                    //{
+                        //"line": [
+                            //{
+                                //"startvalue": "18500",
+                                //"color": "#1aaf5d",
+                                //"displayvalue": "Average{br}weekly{br}footfall",
+                                //"valueOnRight": "1",
+                                //"thickness": "2"
+                            //}
+                        //]
+                    //}
+                //]
+            };
+            for(var week in $scope.gameStats.options){
+                $scope.finalResults.data.push({
+                    label: $scope.gameStats.options[week].currentWeek,
+                    value: $scope.gameStats.options[week].netWorth
+                });
+            }
         };
 
         var sampleStatus = {
@@ -323,6 +419,5 @@
         }, 10);
 
         $scope.challenge = contentService.getMainEvent();
-        console.log($scope.challenge);
     }]);
 })();
