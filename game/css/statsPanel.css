@@ -68,6 +68,10 @@
     font-size: 42px;
     cursor: pointer;
 }
+.statsPanel .statuses i.cannotAfford{
+    cursor: not-allowed;
+    opacity: 0.3;
+}
 
 .red {
     color:red;
@@ -78,7 +82,21 @@
     display: inline;
 }
 
-.statsPanel .statuses .statusDescription{
+.statusDescription{
     margin-top: 5px;
     color: white;
+    padding: 10px;
+}
+
+
+.clickableItems {
+    margin-top: 5px;
+    padding-right: 3px;
+    font-size: 42px;
+    cursor: pointer;
+    color: white;
+}
+
+.clickableIcon:hover {
+    color: #FEDF01;
 }

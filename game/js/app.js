@@ -3,7 +3,12 @@
     .controller('mainController', ['$scope','contentService','$interval', '$timeout', function($scope, contentService, $interval, $timeout) {
         console.log(contentService);
 
-        var gameStats = [];
+        var gameStats = {
+            options: [],
+            flags: {
+
+            }
+        };
 
         $scope.weeks = [
             {
@@ -97,6 +102,11 @@
 
 
         $scope.selectOption = function(optionObject){
+            console.log($scope.cannotAfford(optionObject));
+            if($scope.cannotAfford(optionObject)){
+                return;
+            }
+
             if($scope.state.week == 13){
 
             }
@@ -110,7 +120,7 @@
                 outFlow: $scope.state.outFlow,
                 statuses: $scope.state.status,
             };
-            gameStats.push(stat);
+            gameStats.options.push(stat);
 
             if(optionObject.result.followup){
                 $scope.state.followupQueue.push(optionObject.result.followup);
@@ -137,6 +147,62 @@
                 $scope.state.flags.showResult = true;
             }
             console.log(optionObject);
+        };
+
+        $scope.cannotAfford = function(option){
+            if(option.effect && option.effect.revenueChange < 0 && Math.abs(option.effect.revenueChange) > $scope.state.netWorth){
+                return true;
+            }
+            if(option.result && option.result.revenueChange < 0 && Math.abs(option.result.revenueChange) > $scope.state.netWorth){
+                return true;
+            }
+            //if()
+            
+            return false;
+        };
+
+        $scope.getRevenueString = function(amount){
+            if(amount > 0){
+                return "($" + amount + ")";
+            } else if(amount < 0){
+                return "(-$" +Math.abs(amount) + ')';
+            } else {
+                return '';
+            }
+        };
+
+        $scope.clickableObjects = [
+            {
+                id: "loan",
+                title: "Loan",
+                icon: 'fa fa-money',
+                description: "Get a $1000 Loan, +$50 debt/week. Must be paid fully in 4 weeks",
+                result: {
+                    revenueChange: 1000,
+                    newStatus:{
+                        id: 'loan',
+                        icon: 'fa fa-money',
+                        title: "In Debt",
+                        clickable: true,
+                        description: "You owe money after taking out a loan. Loan must be paid within 4 weeks",
+                        effect: {
+                            weeksUntil: 4,
+                            dot: -50,
+                            revenueChange: -1000
+                        }
+                    }
+                }
+            },
+            {}
+        ];
+
+        $scope.clickableMouseover = function(object){
+            $scope.state.statusText = object.description;
+        };
+
+        $scope.clickClickable = function(object){
+            $scope.state.statuses.push(object.result.newStatus);
+            $scope.state.netWorthChangeQueue += object.result.revenueChange;
         };
 
         function applyStatusEffects(statusObject){
@@ -209,6 +275,9 @@
         };
 
         $scope.statusClick = function(statusObject, statusIndex){
+            if($scope.cannotAfford(statusObject)){
+                return;
+            }
             if(statusObject.clickable){
                 applyStatusEffects(statusObject);
                 $scope.state.statuses.splice(statusIndex, 1);
@@ -219,6 +288,7 @@
         $scope.debug = function(){
             console.log($scope);
             $scope.state.statuses.push(sampleStatus);
+            $scope.state.netWorth = 0;
         };
         
         var sampleFollowup = {
@@ -250,7 +320,7 @@
                     $scope.state.netWorth -= 5;
                 }
             }
-        }, 25);
+        }, 10);
 
         $scope.challenge = contentService.getMainEvent();
         console.log($scope.challenge);

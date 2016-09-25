@@ -13,7 +13,7 @@
     <body class="main" ng-controller="mainController">
         <div class="mask" ng-show="state.currentFollowupEvent.text"></div>
         <div class="followupPopup" ng-show="state.currentFollowupEvent.text">
-            {{state.currentFollowupEvent.text}}
+            <p>{{state.currentFollowupEvent.text}}</p>
             <button class="btn" ng-click="followupClicked()">Continue</button>
         </div>
         <button ng-click="debug()" style="">debug</button>
@@ -29,25 +29,33 @@
                 <span class="outFlow">-${{state.outFlow}}</span>
             </div>
             <div class="statuses panel">
-                <div class="title">Statuses</div>
+                <div class="title">Statuses:</div>
                 <div ng-repeat="status in state.statuses track by $index"
                         ng-mouseover="stateMouseover(status)"
                         ng-mouseleave="stateMouseleave()"
                         ng-click="statusClick(status, $index)"
                         class="statusItem">
-                    <i class="{{status.icon}}"></i>
+                    <i class="{{status.icon}}"
+                            ng-class="{'clickableIcon': status.clickable, 'cannotAfford':cannotAfford(status)}"></i>
                     <!--<span>{{status.title}}</span>-->
                     <!--<p>{{status.effect}}</p>-->
                 </div>
-                <div class="statusDescription" 
-                        ng-show="state.statusText">
-                    <div ng-show="state.statusTextWeeksUntil">{{state.statusTextWeeksUntil}}</div>
-                    <div ng-show="state.statusTextRevenueChange">{{state.statusTextRevenueChange}}</div>
-                    {{state.statusText}}
+            </div>
+            <div class="clickableItems panel">
+                <div class="title">Need More Money?</div>
+                <div ng-repeat="object in clickableObjects track by $index"
+                        ng-mouseover="clickableMouseover(object)"
+                        ng-mouseleave="state.statusText=''"
+                        ng-click="clickClickable(object)"
+                    >
+                    <i class="{{object.icon}} clickableIcon"></i>
                 </div>
             </div>
-            <div class="clickableItems">
-                <div></div>
+            <div class="statusDescription" 
+                    ng-show="state.statusText">
+                <div ng-show="state.statusTextWeeksUntil">{{state.statusTextWeeksUntil}}</div>
+                <div ng-show="state.statusTextRevenueChange">{{state.statusTextRevenueChange}}</div>
+                {{state.statusText}}
             </div>
         </div>
         <div class="mainContent">
@@ -61,9 +69,10 @@
                     <div class="waterlooDoing">WHAT ARE YOU GOING TO DO?</div>
                     <div class="optionsContainer">
                         <div ng-click="selectOption(option)" 
+                                ng-class="{'cannotAfford':cannotAfford(option)}"
                                 ng-repeat="option in challenge.options" 
                                 class="option">
-                            {{option.optionText}}
+                            {{option.optionText}} {{getRevenueString(option.result.revenueChange)}}
                         </div>
                     </div>
 
@@ -71,6 +80,7 @@
                 <div ng-show="state.flags.showResult == true"
                         class="challengeResult">
                     {{challenge.text.resultSummary}}
+                    <a class="summaryLink" target="_blank" href="{{challenge.text.resultSummaryLink}}">More Info</a>
                     <button class="btn" ng-click='pressContinue()'>
                         CONTINUE
                     </button>

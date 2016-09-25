@@ -11,7 +11,7 @@ angular.module('mainApp').factory('contentService', function(){
             text: {
                 heading: "Grandma fell down the stairs",
                 resultSummary: "over 100% over people dont save grandma",
-                resultSummaryLink: "www.google.com"
+                resultSummaryLink: "http://www.google.com"
             },
             options: [
                 {
@@ -40,7 +40,7 @@ angular.module('mainApp').factory('contentService', function(){
                                 description: "Cash Outflow increased by $1000",
                                 effect: {
                                     revenueChange: -100,
-                                    cashFlowChange: 100
+                                    inFlowChange: 100
                                 }
                             }
                         },
@@ -80,6 +80,7 @@ angular.module('mainApp').factory('contentService', function(){
                             id: 'paySupplier',
                             icon: 'fa fa-camera-retro',
                             title: "Pay Supplier",
+                            descriptoin: "Owe supplier money",
                             effect: {
                                 weeksUntil: 2,
                                 revenueChange: -250
@@ -118,12 +119,13 @@ angular.module('mainApp').factory('contentService', function(){
                     optionText: "HIRE CONTRACTOR",
                     result: {
                         revenueChange: -1000,
-                        cashFlowChange: 300,
+                        inFlowChange: 300,
                         newStatus:{
                             id: 'Hired Employee',
                             icon: 'fa fa-camera-retro',
                             title: "Hired CONTRACTOR",
                             description: "Your inflow is increased by 300/week",
+                            effect: {}
                         }
                     }
                 },

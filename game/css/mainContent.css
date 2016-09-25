@@ -10,6 +10,11 @@
     text-align: center;
 }
 
+.mainContent .summaryLink{
+    display: block;
+    color: #FEDF01;
+}
+
 .mainContent .heading{
     padding: 20px;
     padding-top: 125px;
@@ -26,6 +31,11 @@
 
 .mainContent .optionsContainer{
     margin-top: 20px;
+}
+
+.mainContent .option.cannotAfford{
+    cursor:not-allowed;
+    opacity: 0.3;
 }
 
 .mainContent .option{

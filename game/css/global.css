@@ -39,11 +39,26 @@ button.active {
     z-index: 9001;
     margin: auto;
     width: 30%;
-    height: 30vh;
     text-align: center;
     background-color:white;
     left: 35%;
     top: 30vh;
     border-radius: 5px;
     padding: 10px;
+}
+
+.followupPopup p{
+    margin-top: 20px;
+    margin-bottom: 60px;
+}
+
+.followupPopup .btn{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.followupPopup .btn:hover{
+    color: #FEDF01;
+    background-color: #002144;
 }
