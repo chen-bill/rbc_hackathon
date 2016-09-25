@@ -1,13 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="mainApp">
     <head>
         <title>Best RBC Hackathon Project</title>
+        <link href="https://fonts.googleapis.com/css?family=News+Cycle" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../css/font-awesome/css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="../css/global.css">
+        <link rel="stylesheet" type="text/css" href="../css/mainContent.css">
+        <link rel="stylesheet" type="text/css" href="../css/statsPanel.css">
+        <link rel="stylesheet" type="text/css" href="../css/weekTracker.css">
+        <link rel="stylesheet" type="text/css" href="../css/angularAnimations.css">
     </head>
-    <body>
-        <div></div>
-        <div></div>
-        <div></div>
+    <body class="main" ng-controller="mainController">
+        <button ng-click="debug()" style="">debug</button>
+        <div class="statsPanel">
+            <div class="netWorth">
+                <p>NET WORTH:</p>
+                <span class="dollarSign">$</span><span class="amount">{{state.netWorth}}</span>
+            </div>
+            <div class="cashFlow panel">
+                <!--<div class="title">Monthly Cash Flow:</div>-->
+                <!--<div>{{getNetFlow()}}</div>-->
+                <span class="inFlow">+${{state.inFlow}}</span>
+                <span class="outFlow">-${{state.outFlow}}</span>
+            </div>
+            <div class="statuses panel">
+                <div class="title">Statuses</div>
+                <div ng-repeat="status in state.statuses track by $index"
+                        ng-mouseover="state.statusText=status.description"
+                        ng-mouseleave="state.statusText=''"
+                        ng-click="statusClick(status, $index)"
+                        class="statusItem">
+                    <i class="{{status.icon}}"></i>
+                    <!--<span>{{status.title}}</span>-->
+                    <!--<p>{{status.effect}}</p>-->
+                </div>
+                <div class="statusDescription" 
+                        ng-show"state.statusText">
+                    {{state.statusText}}
+                </div>
+            </div>
+            <div class="clickableItems">
+                <div></div>
+            </div>
+        </div>
+        <div class="mainContent">
+            <div ng-repeat="challenge in challenges track by $index" 
+                    ng-show="$index==state.currentWeek-1 
+                    && state.popupState=='challenge'"
+                    class="box rotate" 
+                    ng-class="{'box': !state.flags.showResult, 'circle': state.flags.showResult}">
+                <div ng-show="state.flags.showResult == false">
+                    <div class="heading">{{challenge.text.heading}}</div>
+                    <div class="waterlooDoing">WHAT ARE YOU GOING TO DO?</div>
+                    <div class="optionsContainer">
+                        <div ng-click="selectOption(option.result)" 
+                                ng-repeat="option in challenge.options" 
+                                class="option">
+                            {{option.optionText}}
+                        </div>
+                    </div>
+
+                </div>
+                <div ng-show="state.flags.showResult == true"
+                        class="challengeResult">
+                    {{challenge.text.resultSummary}}
+                    <button>
+                        CONTINUE
+                    </button>
+                </div>
+            </div> 
+
+            <!--popup events-->
+            <div ng-show="state.popupState=='popupEvent'">
+            </div>
+
+            <!--result-->
+            <div ng-show="state.popupState=='result'">
+            </div>
+        </div>
+        <div class="weekTracker">
+            <div ng-repeat="week in weeks track by $index" class="week" ng-class="{'selected': $index==state.currentWeek-1}">{{week}}</div>
+        </div>
+        <img class="rbcLogo" src="../../assets/pictures/rbc-logo-color.png"/>
     </body>
+
     <footer>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.min.js"></script>
+        <script src="../js/app.js"></script>
+        <script src="../js/contentService.js"></script>
     </footer>
 </html>

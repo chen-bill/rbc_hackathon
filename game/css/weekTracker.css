@@ -1,0 +1,20 @@
+.weekTracker{
+    width: 10%;
+    height: 100vh;
+    /*background-color: #002888;*/
+    background-color: #002144;
+    position: absolute;
+    right: 0;
+    padding-top: 20px;
+}
+
+.weekTracker .week{
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+
+.weekTracker .selected{
+    color: #002144;
+    background-color: #FEDF01;
+}

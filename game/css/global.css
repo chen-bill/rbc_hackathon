@@ -1,0 +1,26 @@
+*{
+	margin: 0;
+	padding: 0;
+    font-family:'News Cycle', sans-serif;
+}	
+
+/*.main{*/
+    /*background-color: #002144;*/
+/*}*/
+
+.rbcLogo{
+    position:fixed;
+    bottom: 5px;
+    right: calc(10% + 5px);
+    width: 60px;
+}
+
+button:active,
+button:focus,
+button.active {
+      background-image: none;
+        outline: 0;
+          -webkit-box-shadow: none;
+                    box-shadow: none;
+
+}
