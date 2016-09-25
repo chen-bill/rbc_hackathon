@@ -1,0 +1,11 @@
+applications:
+- path: .
+  memory: 512M
+  instances: 1
+  domain: mybluemix.net
+  name: Survive the Quarter!
+  host: survivethequarter
+  disk_quota: 1024M
+  services:
+  - Survive the Quarter!-cloudantNoSQLDB
+  - performance-monitoring-auto
