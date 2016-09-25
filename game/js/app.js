@@ -4,6 +4,7 @@
         $scope.companyName = '';
 
         $scope.gameStats = {
+            statuses: [],
             options: [],
             flags: {
                 tookLoan: false,
@@ -221,6 +222,7 @@
         };
 
         function applyStatusEffects(statusObject){
+            $scope.gameStats.statuses.push(statusObject);
             if(statusObject.effect){
                 if(statusObject.effect.revenueChange){
                     $scope.state.netWorthChangeQueue += statusObject.effect.revenueChange;
