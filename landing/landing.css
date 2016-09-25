@@ -37,7 +37,8 @@
   -moz-border-radius: 40;
   border-radius: 40px;
   font-family: Arial;
-  color: blue;
+  //color: blue;
+  color:black;
   font-size: 30px;
   background: white;
   //padding: 00px 40px 40px 40px;
