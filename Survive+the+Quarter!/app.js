@@ -42,17 +42,19 @@ var db;
 var MongoClient = mongodb.MongoClient;
 var dburl = 'mongodb://admin:adminpass@ds041496.mlab.com:41496/talksmackgethacked';
 
-MongoClient.connect(dburl, function(err, db){
-	if(err){
-		console.log('Error connecting to mlab database ' + err);
-	}else{
-		console.log('Established connection');
-		db.close();
-		console.log('Connection closed');
-	}
-});
+// MongoClient.connect(dburl, function(err, db){
+// 	if(err){
+// 		console.log('Error connecting to mlab database ' + err);
+// 	}else{
+// 		console.log('Established connection');
+// 		db.close();
+// 		console.log('Connection closed');
+// 	}
+// });
 
-mongoose.connect(dburl);
+mongoose.connect(dburl,  function(err){
+    console.log(err);
+});
 
 
 app.all('/*', function(req, res, next) {
@@ -95,7 +97,7 @@ app.get('/nextpage', function(req,res){
     res.sendFile('app.html', { root: path.join(__dirname, './game/pages/') })
 });
 
-http.createServer(app).listen(3000, '0.0.0.0', function() {
+http.createServer(app).listen(process.env.VCAP_APP_PORT || 3000, '0.0.0.0', function() {
 	console.log('Express server listening on port ' + app.get('port'));
 });
 
