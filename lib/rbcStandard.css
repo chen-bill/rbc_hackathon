@@ -2,15 +2,15 @@
 	background-color: #002144;
 	color: white;
 }
-
-.rbcTextHeader1{
-	font: 40px arial bold;
+html, h1{
+	font: 40px arial;
 }
-
-.rbcTextHeader2{
-	font: 30px arial bold;
-}
-
-.rbcTextBody{
+div{
+	margin: auto;
 	font: 16px arial;
+	text-align: left;
+	border: 0px solid white;
+}
+p{
+	font: 20px arial;
 }
