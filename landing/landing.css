@@ -1,0 +1,49 @@
+.landingContainer{
+  width: 100%;
+}
+
+.landingTable{
+	display: table;
+	width: 800px;
+  position: relative;
+}
+.landingTableDiv{
+	display: table;
+	width: 100%;
+	height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.landingTableRow{
+	display: table-row;
+}
+.landingTableCell{
+	//text-align: left;
+  vertical-align: top;
+  height: 100px;
+	width: 33.3%;
+	border: 0px solid white;
+	display: table-cell;
+	padding: 3px 10px;
+}
+.btn {
+  position: relative;
+  text-align: center;/*
+  padding-bottom: 100px;*/
+  padding-top: 70px;
+  height: 100%;
+
+  -webkit-border-radius: 40;
+  -moz-border-radius: 40;
+  border-radius: 40px;
+  font-family: Arial;
+  color: blue;
+  font-size: 30px;
+  background: white;
+  //padding: 00px 40px 40px 40px;
+  text-decoration: none;
+}
+.btn:hover {
+  background: #FEDF01;
+  text-decoration: none;
+}
