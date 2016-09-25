@@ -59,18 +59,19 @@
             </div>
         </div>
         <div class="mainContent">
-            <div ng-show="state.isIntro==true"
+            <!--{{state}}-->
+            <div ng-show="state.flags.isIntro==true"
                     class="fade">
                 input boxes and shit
             </div>
             <!--<div ng-repeat="challenge in challenges track by $index" -->
                     <!--ng-show="$index==state.currentWeek-1 -->
-            <div ng-show="state.isIntro==false"
+            <div ng-show="state.flags.isIntro==false"
                     class="box rotate fade" 
                     ng-class="{'box': !state.flags.showResult, 'circle': state.flags.showResult}">
                 <div ng-show="state.flags.showResult == false">
                     <div class="heading">{{challenge.text.heading}}</div>
-                    <div class="waterlooDoing">WHAT ARE YOU GOING TO DO?</div>
+                    <div class="waterlooDoing" ng-show="challenge.options.length > 1">WHAT ARE YOU GOING TO DO?</div>
                     <div class="optionsContainer">
                         <div ng-click="selectOption(option)" 
                                 ng-class="{'cannotAfford':cannotAfford(option)}"

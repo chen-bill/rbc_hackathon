@@ -17,33 +17,41 @@ angular.module('mainApp').factory('contentService', function(){
             {
                 optionText: "Take the discount and pay now.",
                 result: {
-                    revenueChange: -50,
+                    revenueChange: -75,
                     inFlowChange: 0,
                     outFlowChange: 0,
-                   
                 }
             },
             {
                 optionText: "Don't take the discount and pay later",
                 result: {
-                    revenueChange: 100,
-                    followup:{
-                        text: "grandma gets mad and steals your shit",
-                        revenueChange: -500,
-                        inFlowChange: 123,
-                        outFlowChange: 123,
-                        newFollowupStatus:{
-                            id: 'brokeAf',
-                            icon: 'fa fa-camera-retro',
-                            title: "In Debt",
-                            description: "Cash Outflow increased by $1000",
-                            effect: {
-                                revenueChange: -100,
-                                cashFlowChange: 100
-                            }
+                    //followup:{
+                        //text: "grandma gets mad and steals your shit",
+                        //revenueChange: -500,
+                        //inFlowChange: 123,
+                        //outFlowChange: 123,
+                        //newFollowupStatus:{
+                            //id: 'brokeAf',
+                            //icon: 'fa fa-camera-retro',
+                            //title: "In Debt",
+                            //description: "Cash Outflow increased by $1000",
+                            //effect: {
+                                //revenueChange: -100,
+                                //cashFlowChange: 100
+                            //}
+                        //}
+                    //},
+                    newStatus:{
+                        id: 'paySupplierLater',
+                        icon: 'fa fa-camera-retro',
+                        title: "Pay Supplier",
+                        description: "Pay Supplier",
+                        effect: {
+                            weeksUntil: 2,
+                            revenueChange: -100
                         }
-                    },
                     }
+                }
             }
         ],
     },
@@ -62,6 +70,14 @@ angular.module('mainApp').factory('contentService', function(){
                     revenueChange: 0,
                     inFlowChange: -50,
                     outFlowChange: 0,
+                    },
+                    newStatus:{
+                        id: 'customerBankrupt',
+                        icon: 'fa fa-camera-retro',
+                        title: " Debt",
+                        description: "Inflow decreased by 50",
+                        effect: {
+                        }
                     }
                 }
         ],
@@ -187,7 +203,8 @@ angular.module('mainApp').factory('contentService', function(){
                     followup: {
                         text: "Grandma says thank you for saving her",
                         revenueChange: 1000,
-                    }
+                    },
+
                 }
             },
             {
@@ -196,7 +213,6 @@ angular.module('mainApp').factory('contentService', function(){
                     revenueChange: 0,
                     inFlowChange: 260,
                     outFlowChange: 200
-                    
                 }
             },
             {

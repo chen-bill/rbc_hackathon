@@ -79,7 +79,8 @@
             statusTextWeeksUntil: '',
             statusTextRevenueChange: '',
             flags: {
-                showResult: false
+                showResult: false,
+                isIntro: false
             },
         };
 
@@ -137,7 +138,7 @@
             }
 
             if(optionObject.result.outFlowChange){
-                $scope.state.inFlow += optionObject.result.outFlowChange;
+                $scope.state.outFlow += optionObject.result.outFlowChange;
             }
 
             if(optionObject.noResultSummary){
@@ -216,7 +217,7 @@
                     $scope.state.inFlow += optionObject.result.inFlowChange;
                 }
                 if(statusObject.effect.outFlowChange){
-                    $scope.state.inFlow += optionObject.result.outFlowChange;
+                    $scope.state.outFlow += optionObject.result.outFlowChange;
                 }
             }
         }
@@ -270,7 +271,7 @@
                 $scope.state.inFlow += followupEvent.inFlowChange;
             }
             if(followupEvent.outFlowChange){
-                $scope.state.inFlow += followupEvent.outFlowChange;
+                $scope.state.outFlow += followupEvent.outFlowChange;
             }
 
             $scope.state.currentFollowupEvent = {};
