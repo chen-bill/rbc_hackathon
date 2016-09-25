@@ -11,6 +11,11 @@
         <link rel="stylesheet" type="text/css" href="../css/angularAnimations.css">
     </head>
     <body class="main" ng-controller="mainController">
+        <div class="mask" ng-show="state.currentFollowupEvent.text"></div>
+        <div class="followupPopup" ng-show="state.currentFollowupEvent.text">
+            {{state.currentFollowupEvent.text}}
+            <button class="btn" ng-click="followupClicked()">Continue</button>
+        </div>
         <button ng-click="debug()" style="">debug</button>
         <div class="statsPanel">
             <div class="netWorth">
@@ -44,16 +49,16 @@
             </div>
         </div>
         <div class="mainContent">
-            <div ng-repeat="challenge in challenges track by $index" 
-                    ng-show="$index==state.currentWeek-1 
-                    && state.popupState=='challenge'"
-                    class="box rotate" 
+            <!--<div ng-repeat="challenge in challenges track by $index" -->
+                    <!--ng-show="$index==state.currentWeek-1 -->
+            <div ng-show="state.popupState=='challenge'"
+                    class="box rotate fade" 
                     ng-class="{'box': !state.flags.showResult, 'circle': state.flags.showResult}">
                 <div ng-show="state.flags.showResult == false">
                     <div class="heading">{{challenge.text.heading}}</div>
                     <div class="waterlooDoing">WHAT ARE YOU GOING TO DO?</div>
                     <div class="optionsContainer">
-                        <div ng-click="selectOption(option.result)" 
+                        <div ng-click="selectOption(option)" 
                                 ng-repeat="option in challenge.options" 
                                 class="option">
                             {{option.optionText}}
@@ -64,22 +69,14 @@
                 <div ng-show="state.flags.showResult == true"
                         class="challengeResult">
                     {{challenge.text.resultSummary}}
-                    <button>
+                    <button class="btn" ng-click='pressContinue()'>
                         CONTINUE
                     </button>
                 </div>
             </div> 
-
-            <!--popup events-->
-            <div ng-show="state.popupState=='popupEvent'">
-            </div>
-
-            <!--result-->
-            <div ng-show="state.popupState=='result'">
-            </div>
         </div>
         <div class="weekTracker">
-            <div ng-repeat="week in weeks track by $index" class="week" ng-class="{'selected': $index==state.currentWeek-1}">{{week}}</div>
+            <div ng-repeat="week in weeks track by $index" class="week" ng-class="{'selected': $index==state.currentWeek-1}">{{week.week}}</div>
         </div>
         <img class="rbcLogo" src="../../assets/pictures/rbc-logo-color.png"/>
     </body>

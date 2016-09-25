@@ -24,3 +24,26 @@ button.active {
                     box-shadow: none;
 
 }
+
+.mask{
+    background-color: black;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 9000;
+    opacity: 0.5;
+}
+
+.followupPopup{
+    position: absolute;
+    z-index: 9001;
+    margin: auto;
+    width: 30%;
+    height: 30vh;
+    text-align: center;
+    background-color:white;
+    left: 35%;
+    top: 30vh;
+    border-radius: 5px;
+    padding: 10px;
+}
