@@ -6,7 +6,7 @@
         var gameStats = {
             options: [],
             flags: {
-
+                tookLoan: false
             }
         };
 
@@ -107,20 +107,19 @@
                 return;
             }
 
-            if($scope.state.week == 13){
-
-            }
-
             var stat = {
                 currentWeek: $scope.state.currentWeek,
                 option: optionObject,
                 id: $scope.challenge.id,
                 netWorth: $scope.state.netWorth,
-                inFlow: $scope.state.outFlow,
+                inFlow: $scope.state.inFlow,
                 outFlow: $scope.state.outFlow,
                 statuses: $scope.state.status,
             };
             gameStats.options.push(stat);
+
+            if($scope.state.week == 13){
+            }
 
             if(optionObject.result.followup){
                 $scope.state.followupQueue.push(optionObject.result.followup);
@@ -201,6 +200,9 @@
         };
 
         $scope.clickClickable = function(object){
+            if(object.id === 'loan'){
+                gameStats.flags.tookLoan = true;
+            }
             $scope.state.statuses.push(object.result.newStatus);
             $scope.state.netWorthChangeQueue += object.result.revenueChange;
         };
@@ -287,12 +289,9 @@
 
         $scope.debug = function(){
             console.log($scope);
-            $scope.state.statuses.push(sampleStatus);
-            $scope.state.netWorth = 0;
-        };
-        
-        var sampleFollowup = {
-
+            //$scope.state.statuses.push(sampleStatus);
+            //$scope.state.netWorth = 0;
+            console.log(JSON.stringify(gameStats));
         };
 
         var sampleStatus = {

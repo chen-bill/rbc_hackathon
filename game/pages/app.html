@@ -59,9 +59,13 @@
             </div>
         </div>
         <div class="mainContent">
+            <div ng-show="state.isIntro==true"
+                    class="fade">
+                input boxes and shit
+            </div>
             <!--<div ng-repeat="challenge in challenges track by $index" -->
                     <!--ng-show="$index==state.currentWeek-1 -->
-            <div ng-show="state.popupState=='challenge'"
+            <div ng-show="state.isIntro==false"
                     class="box rotate fade" 
                     ng-class="{'box': !state.flags.showResult, 'circle': state.flags.showResult}">
                 <div ng-show="state.flags.showResult == false">
