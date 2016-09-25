@@ -71,9 +71,22 @@
             currentFollowupEvent: {},
             statuses: [],
             statusText: '',
+            statusTextWeeksUntil: '',
             flags: {
                 showResult: false
             },
+        };
+
+        $scope.stateMouseover = function(statusObject){
+            $scope.state.statusText = statusObject.description;
+            if(statusObject.effect.weeksUntil){
+                $scope.state.statusTextWeeksUntil = (statusObject.effect.weeksUntil + " week(s) until effect. ");
+            }
+        };
+
+        $scope.stateMouseleave = function(){
+            $scope.state.statusText = '';
+            $scope.state.statusTextWeeksUntil = '';
         };
 
 
@@ -92,6 +105,7 @@
                 $scope.state.followupQueue.push(optionObject.result.followup);
             }
             if(optionObject.result.newStatus){
+                $scope.state.statuses.push(optionObject.result.newStatus);
                 applyStatusEffects(optionObject.result.newStatus);
             }
 
@@ -101,8 +115,6 @@
         };
 
         function applyStatusEffects(statusObject){
-            console.log(statusObject);
-            $scope.state.statuses.push(statusObject);
             if(statusObject.effect && statusObject.effect.revenueChange){
                 if(statusObject.effect.revenueChange > 0){
                     $scope.state.inFlow += Math.abs(statusObject.effect.revenueChange);
@@ -121,7 +133,20 @@
             $scope.state.currentWeek++;
             rngFollowup();
             calculateCashflow();
+            updateStatusDates();
             $scope.challenge = contentService.getMainEvent();
+        }
+
+        function updateStatusDates(){
+            for(var status in $scope.state.statuses) {
+                if($scope.state.statuses[status].effect && $scope.state.statuses[status].effect.weeksUntil){
+                    if($scope.state.statuses[status].effect.weeksUntil == 1){
+                        applyStatusEffects($scope.state.statuses[status].effect);
+                        $scope.state.statuses.splice(status,1);
+                    }
+                    $scope.state.statuses[status].effect.weeksUntil--;
+                }
+            }
         }
 
         function calculateCashflow(){

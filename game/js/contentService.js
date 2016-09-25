@@ -47,6 +47,7 @@ angular.module('mainApp').factory('contentService', function(){
                             title: "In Debt",
                             description: "Cash Outflow increased by $1000",
                             effect: {
+                                weeksUntil: 2,
                                 revenueChange: -100
                             }
                         }
@@ -55,7 +56,6 @@ angular.module('mainApp').factory('contentService', function(){
             ],
         },
         {
-
             id: 'grandma',
             text: {
                 heading: "Grandma fell down the stairs",
