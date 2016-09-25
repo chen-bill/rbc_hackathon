@@ -1,0 +1,58 @@
+{
+    id: 'grandma',
+    text: {
+        heading: "Grandma fell down the stairs",
+        resultSummary: "over 100% over people dont save grandma",
+        resultSummaryLink: "www.google.com"
+    },
+    options: [
+        {
+            optionText: "SAVE HER",
+            result: {
+                revenueChange: -100,
+                inFlowChange: 100,
+                outFlowChange: -100,
+                followup: {
+                    text: "Grandma says thank you for saving her",
+                    revenueChange: 1000,
+                }
+            }
+        },
+        {
+            optionText: "DO NOTHING",
+            result: {
+                revenueChange: 100,
+                followup:{
+                    text: "grandma gets mad and steals your shit",
+                    revenueChange: -500,
+                    inFlowChange: 123,
+                    outFlowChange: 123,
+                    newFollowupStatus:{
+                        id: 'brokeAf',
+                        icon: 'fa fa-camera-retro',
+                        title: "In Debt",
+                        description: "Cash Outflow increased by $1000",
+                        effect: {
+                            revenueChange: -100,
+                            cashFlowChange: 100
+                        }
+                    }
+                },
+                newStatus:{
+                    id: 'brokeAf',
+                    icon: 'fa fa-birthday-cake',
+                    title: "In Debt",
+                    description: "Cash Outflow increased by $1000",
+                    effect: {
+                        weeksUntil: 2,
+                        dot: -10,
+                        revenueChange: -100,
+                        inFlowChange: 100,
+                        outFlowChange: 200,
+                    }
+                }
+            }
+        }
+    ],
+},
+

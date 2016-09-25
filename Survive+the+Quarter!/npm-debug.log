@@ -1,0 +1,184 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '--global',
+1 verbose cli   'lite-server' ]
+2 info using npm@2.14.20
+3 info using node@v4.4.0
+4 verbose install initial load of /usr/local/lib/package.json
+5 verbose readDependencies loading dependencies from /usr/local/lib/package.json
+6 silly cache add args [ 'lite-server', null ]
+7 verbose cache add spec lite-server
+8 silly cache add parsed spec Result {
+8 silly cache add   raw: 'lite-server',
+8 silly cache add   scope: null,
+8 silly cache add   name: 'lite-server',
+8 silly cache add   rawSpec: '',
+8 silly cache add   spec: 'latest',
+8 silly cache add   type: 'tag' }
+9 silly addNamed lite-server@latest
+10 verbose addNamed "latest" is being treated as a dist-tag for lite-server
+11 info addNameTag [ 'lite-server', 'latest' ]
+12 silly mapToRegistry name lite-server
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry https://registry.npmjs.org/
+15 silly mapToRegistry uri https://registry.npmjs.org/lite-server
+16 verbose addNameTag registry:https://registry.npmjs.org/lite-server not in flight; fetching
+17 verbose request uri https://registry.npmjs.org/lite-server
+18 verbose request no auth needed
+19 info attempt registry request try #1 at 9:56:54 AM
+20 verbose request id 38174b3fdaf654aa
+21 http request GET https://registry.npmjs.org/lite-server
+22 http 200 https://registry.npmjs.org/lite-server
+23 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+23 verbose headers   etag: '"BH4DLJCTVGEVUQ6YFTSIDB1AN"',
+23 verbose headers   'content-type': 'application/json',
+23 verbose headers   'content-encoding': 'gzip',
+23 verbose headers   'cache-control': 'max-age=300',
+23 verbose headers   'content-length': '5780',
+23 verbose headers   'accept-ranges': 'bytes',
+23 verbose headers   date: 'Sun, 25 Sep 2016 13:56:55 GMT',
+23 verbose headers   via: '1.1 varnish',
+23 verbose headers   age: '0',
+23 verbose headers   connection: 'keep-alive',
+23 verbose headers   'x-served-by': 'cache-yyz8325-YYZ',
+23 verbose headers   'x-cache': 'MISS',
+23 verbose headers   'x-cache-hits': '0',
+23 verbose headers   'x-timer': 'S1474811815.167522,VS0,VE154',
+23 verbose headers   vary: 'Accept-Encoding' }
+24 silly get cb [ 200,
+24 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+24 silly get     etag: '"BH4DLJCTVGEVUQ6YFTSIDB1AN"',
+24 silly get     'content-type': 'application/json',
+24 silly get     'content-encoding': 'gzip',
+24 silly get     'cache-control': 'max-age=300',
+24 silly get     'content-length': '5780',
+24 silly get     'accept-ranges': 'bytes',
+24 silly get     date: 'Sun, 25 Sep 2016 13:56:55 GMT',
+24 silly get     via: '1.1 varnish',
+24 silly get     age: '0',
+24 silly get     connection: 'keep-alive',
+24 silly get     'x-served-by': 'cache-yyz8325-YYZ',
+24 silly get     'x-cache': 'MISS',
+24 silly get     'x-cache-hits': '0',
+24 silly get     'x-timer': 'S1474811815.167522,VS0,VE154',
+24 silly get     vary: 'Accept-Encoding' } ]
+25 verbose get saving lite-server to /Users/Tony/.npm/registry.npmjs.org/lite-server/.cache.json
+26 verbose correctMkdir /Users/Tony/.npm correctMkdir not in flight; initializing
+27 silly addNameTag next cb for lite-server with tag latest
+28 silly addNamed lite-server@2.2.2
+29 verbose addNamed "2.2.2" is a plain semver version for lite-server
+30 silly mapToRegistry name lite-server
+31 silly mapToRegistry using default registry
+32 silly mapToRegistry registry https://registry.npmjs.org/
+33 silly mapToRegistry uri https://registry.npmjs.org/lite-server
+34 verbose addRemoteTarball https://registry.npmjs.org/lite-server/-/lite-server-2.2.2.tgz not in flight; adding
+35 verbose addRemoteTarball [ 'https://registry.npmjs.org/lite-server/-/lite-server-2.2.2.tgz',
+35 verbose addRemoteTarball   '4644afe6c9146d850cfa0ad9a86a94f87156499e' ]
+36 info retry fetch attempt 1 at 9:56:55 AM
+37 info attempt registry request try #1 at 9:56:55 AM
+38 http fetch GET https://registry.npmjs.org/lite-server/-/lite-server-2.2.2.tgz
+39 http fetch 200 https://registry.npmjs.org/lite-server/-/lite-server-2.2.2.tgz
+40 silly fetchAndShaCheck shasum 4644afe6c9146d850cfa0ad9a86a94f87156499e
+41 verbose addTmpTarball /var/folders/2d/hc6qsj6d66q5hgy75h7gfjzr0000gn/T/npm-2207-72e4ac62/registry.npmjs.org/lite-server/-/lite-server-2.2.2.tgz not in flight; adding
+42 verbose addTmpTarball already have metadata; skipping unpack for lite-server@2.2.2
+43 verbose correctMkdir /Users/Tony/.npm correctMkdir not in flight; initializing
+44 silly cache afterAdd lite-server@2.2.2
+45 verbose afterAdd /Users/Tony/.npm/lite-server/2.2.2/package/package.json not in flight; writing
+46 verbose correctMkdir /Users/Tony/.npm correctMkdir not in flight; initializing
+47 verbose afterAdd /Users/Tony/.npm/lite-server/2.2.2/package/package.json written
+48 silly install resolved [ { name: 'lite-server',
+48 silly install resolved     version: '2.2.2',
+48 silly install resolved     description: 'Lightweight development node server for serving a web app, providing a fallback for browser history API, loading in the browser, and injecting scripts on the fly.',
+48 silly install resolved     main: 'index.js',
+48 silly install resolved     scripts: { test: 'eslint *.js lib/*.js && istanbul cover _mocha -- -R spec' },
+48 silly install resolved     repository:
+48 silly install resolved      { type: 'git',
+48 silly install resolved        url: 'git+https://github.com/johnpapa/lite-server.git' },
+48 silly install resolved     keywords: [ 'angular', 'spa', 'static', 'server', 'development' ],
+48 silly install resolved     contributors: [ [Object], [Object] ],
+48 silly install resolved     license: 'MIT',
+48 silly install resolved     bin: { 'lite-server': './bin/lite-server' },
+48 silly install resolved     homepage: 'https://github.com/johnpapa/lite-server#readme',
+48 silly install resolved     dependencies:
+48 silly install resolved      { 'browser-sync': '^2.12.3',
+48 silly install resolved        'connect-history-api-fallback': '^1.2.0',
+48 silly install resolved        'connect-logger': '0.0.1',
+48 silly install resolved        lodash: '^4.11.1',
+48 silly install resolved        minimist: '1.2.0' },
+48 silly install resolved     devDependencies:
+48 silly install resolved      { eslint: '^2.8.0',
+48 silly install resolved        istanbul: '^0.4.3',
+48 silly install resolved        mocha: '^2.4.5',
+48 silly install resolved        mockery: '^1.6.2',
+48 silly install resolved        sinon: '^1.17.3' },
+48 silly install resolved     gitHead: '27c0d5bfe417f6b469ced687fb288cfb7f178df5',
+48 silly install resolved     bugs: { url: 'https://github.com/johnpapa/lite-server/issues' },
+48 silly install resolved     _id: 'lite-server@2.2.2',
+48 silly install resolved     _shasum: '4644afe6c9146d850cfa0ad9a86a94f87156499e',
+48 silly install resolved     _from: 'lite-server@latest',
+48 silly install resolved     _npmVersion: '2.14.3',
+48 silly install resolved     _nodeVersion: '6.2.2',
+48 silly install resolved     _npmUser: { name: 'johnpapa', email: 'john@johnpapa.net' },
+48 silly install resolved     dist:
+48 silly install resolved      { shasum: '4644afe6c9146d850cfa0ad9a86a94f87156499e',
+48 silly install resolved        tarball: 'https://registry.npmjs.org/lite-server/-/lite-server-2.2.2.tgz' },
+48 silly install resolved     maintainers: [ [Object] ],
+48 silly install resolved     _npmOperationalInternal:
+48 silly install resolved      { host: 'packages-16-east.internal.npmjs.com',
+48 silly install resolved        tmp: 'tmp/lite-server-2.2.2.tgz_1466894991041_0.2787389624863863' },
+48 silly install resolved     directories: {},
+48 silly install resolved     _resolved: 'https://registry.npmjs.org/lite-server/-/lite-server-2.2.2.tgz' } ]
+49 info install lite-server@2.2.2 into /usr/local/lib
+50 info installOne lite-server@2.2.2
+51 verbose installOne of lite-server to /usr/local/lib not in flight; installing
+52 verbose correctMkdir /Users/Tony/.npm/_locks correctMkdir not in flight; initializing
+53 verbose lock using /Users/Tony/.npm/_locks/lite-server-cbf0f7dd42e305e9.lock for /usr/local/lib/node_modules/lite-server
+54 silly install write writing lite-server 2.2.2 to /usr/local/lib/node_modules/lite-server
+55 verbose unbuild lib/node_modules/lite-server
+56 silly gentlyRm /usr/local/lib/node_modules/lite-server is being purged from base /usr/local
+57 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/lite-server
+58 verbose tar unpack /Users/Tony/.npm/lite-server/2.2.2/package.tgz
+59 verbose tar unpacking to /usr/local/lib/node_modules/lite-server
+60 silly gentlyRm /usr/local/lib/node_modules/lite-server is being purged
+61 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/lite-server
+62 silly gunzTarPerm modes [ '755', '644' ]
+63 error tar.unpack untar error /Users/Tony/.npm/lite-server/2.2.2/package.tgz
+64 verbose unlock done using /Users/Tony/.npm/_locks/lite-server-cbf0f7dd42e305e9.lock for /usr/local/lib/node_modules/lite-server
+65 verbose fstream_path /usr/local/lib/node_modules/lite-server
+66 verbose fstream_type Directory
+67 verbose fstream_class DirWriter
+68 verbose stack Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules/lite-server'
+68 verbose stack     at Error (native)
+69 verbose fstream_stack /usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:35:25
+69 verbose fstream_stack /usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:47:53
+69 verbose fstream_stack FSReqWrap.oncomplete (fs.js:82:15)
+70 verbose cwd /Users/Tony/Development/RBChacks2016/rbc_hackathon/Survive+the+Quarter!
+71 error Darwin 15.6.0
+72 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "--global" "lite-server"
+73 error node v4.4.0
+74 error npm  v2.14.20
+75 error path /usr/local/lib/node_modules/lite-server
+76 error code EACCES
+77 error errno -13
+78 error syscall mkdir
+79 error Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules/lite-server'
+79 error     at Error (native)
+79 error  { [Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules/lite-server']
+79 error   errno: -13,
+79 error   code: 'EACCES',
+79 error   syscall: 'mkdir',
+79 error   path: '/usr/local/lib/node_modules/lite-server',
+79 error   fstream_type: 'Directory',
+79 error   fstream_path: '/usr/local/lib/node_modules/lite-server',
+79 error   fstream_class: 'DirWriter',
+79 error   fstream_stack:
+79 error    [ '/usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:35:25',
+79 error      '/usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:47:53',
+79 error      'FSReqWrap.oncomplete (fs.js:82:15)' ] }
+80 error Please try running this command again as root/Administrator.
+81 verbose exit [ -13, true ]
+82 verbose unbuild lib/node_modules/lite-server
+83 silly gentlyRm /usr/local/lib/node_modules/lite-server is being purged from base /usr/local
+84 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/lite-server
