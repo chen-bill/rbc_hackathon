@@ -72,13 +72,18 @@
             statuses: [],
             statusText: '',
             statusTextWeeksUntil: '',
+            statusTextRevenueChange: '',
             flags: {
                 showResult: false
             },
         };
 
         $scope.stateMouseover = function(statusObject){
+            console.log(statusObject);
             $scope.state.statusText = statusObject.description;
+            if(statusObject.effect.revenueChange){
+                $scope.state.statusTextRevenueChange = "Amount Owed: " + statusObject.effect.revenueChange;
+            }
             if(statusObject.effect.weeksUntil){
                 $scope.state.statusTextWeeksUntil = (statusObject.effect.weeksUntil + " week(s) until effect. ");
             }
@@ -87,10 +92,15 @@
         $scope.stateMouseleave = function(){
             $scope.state.statusText = '';
             $scope.state.statusTextWeeksUntil = '';
+            $scope.state.statusTextRevenueChange = '';
         };
 
 
         $scope.selectOption = function(optionObject){
+            if($scope.state.week == 13){
+
+            }
+
             var stat = {
                 currentWeek: $scope.state.currentWeek,
                 option: optionObject,
@@ -101,6 +111,7 @@
                 statuses: $scope.state.status,
             };
             gameStats.push(stat);
+
             if(optionObject.result.followup){
                 $scope.state.followupQueue.push(optionObject.result.followup);
             }
@@ -108,18 +119,36 @@
                 $scope.state.statuses.push(optionObject.result.newStatus);
                 applyStatusEffects(optionObject.result.newStatus);
             }
+            if(optionObject.result.revenueChange){
+                $scope.state.netWorthChangeQueue += optionObject.result.revenueChange;
+            }
 
-            $scope.netWorthChangeQueue += optionObject.result.revenueChange;
-            $scope.state.flags.showResult = true;
+            if(optionObject.result.inFlowChange){
+                $scope.state.inFlow += optionObject.result.inFlowChange;
+            }
+
+            if(optionObject.result.outFlowChange){
+                $scope.state.inFlow += optionObject.result.outFlowChange;
+            }
+
+            if(optionObject.noResultSummary){
+                newChallengeInit();
+            } else {
+                $scope.state.flags.showResult = true;
+            }
             console.log(optionObject);
         };
 
         function applyStatusEffects(statusObject){
-            if(statusObject.effect && statusObject.effect.revenueChange){
-                if(statusObject.effect.revenueChange > 0){
-                    $scope.state.inFlow += Math.abs(statusObject.effect.revenueChange);
-                } else {
-                    $scope.state.outFlow += Math.abs(statusObject.effect.revenueChange);
+            if(statusObject.effect){
+                if(statusObject.effect.revenueChange){
+                    $scope.state.netWorthChangeQueue += statusObject.effect.revenueChange;
+                }
+                if(statusObject.effect.inFlowChange){
+                    $scope.state.inFlow += optionObject.result.inFlowChange;
+                }
+                if(statusObject.effect.outFlowChange){
+                    $scope.state.inFlow += optionObject.result.outFlowChange;
                 }
             }
         }
@@ -140,11 +169,14 @@
         function updateStatusDates(){
             for(var status in $scope.state.statuses) {
                 if($scope.state.statuses[status].effect && $scope.state.statuses[status].effect.weeksUntil){
-                    if($scope.state.statuses[status].effect.weeksUntil == 1){
+                    if($scope.state.statuses[status].effect.dot){
+                        $scope.state.statuses[status].effect.revenueChange += $scope.state.statuses[status].effect.dot;
+                    }
+                    $scope.state.statuses[status].effect.weeksUntil--;
+                    if($scope.state.statuses[status].effect.weeksUntil === 0){
                         applyStatusEffects($scope.state.statuses[status].effect);
                         $scope.state.statuses.splice(status,1);
                     }
-                    $scope.state.statuses[status].effect.weeksUntil--;
                 }
             }
         }
@@ -154,9 +186,7 @@
         }
 
         function rngFollowup(){
-            console.log('rng followup');
             var randomNumber = Math.random();
-            console.log(randomNumber);
             if($scope.state.followupQueue.length !== 0 && randomNumber >= 0.50){
                 var nextFollowupEvent = $scope.state.followupQueue.splice(0,1)[0];
                 $scope.state.currentFollowupEvent = nextFollowupEvent;
@@ -164,25 +194,29 @@
         }
 
         $scope.followupClicked = function(){
-            console.log($scope);
             var followupEvent = $scope.state.currentFollowupEvent;
             if (followupEvent.revenueChange){
                 $scope.state.netWorthChangeQueue += followupEvent.revenueChange;
+            }
+            if(followupEvent.inFlowChange){
+                $scope.state.inFlow += followupEvent.inFlowChange;
+            }
+            if(followupEvent.outFlowChange){
+                $scope.state.inFlow += followupEvent.outFlowChange;
             }
 
             $scope.state.currentFollowupEvent = {};
         };
 
         $scope.statusClick = function(statusObject, statusIndex){
-            console.log('Status object clicked');
-            if(statusObject.effect.revenueChange){
-                $scope.state.netWorthChangeQueue += statusObject.effect.revenueChange;
+            if(statusObject.clickable){
+                applyStatusEffects(statusObject);
+                $scope.state.statuses.splice(statusIndex, 1);
             }
-            $scope.state.statuses.splice(statusIndex, 1);
+
         };
 
         $scope.debug = function(){
-            console.log(Object.keys($scope.state.currentFollowupEvent).length !== 0);
             console.log($scope);
             $scope.state.statuses.push(sampleStatus);
         };
